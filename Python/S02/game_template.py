@@ -8,8 +8,15 @@ enemies = ['bat', 'ghost', 'goblin', 'dragon', '']
 # Scenario templates
 # TODO 1: Add more diverse and complex scenario templates.
 scenario_templates = {
-    # ...
-}
+    # Example scenario format:
+    # 'start': {
+    #     'text': 'You find yourself in a dark cave. Exits are North and South.',
+    #     'options': ['Go North', 'Go South'],
+    #     'outcomes': ['north_scenario', 'south_scenario'],
+    #     'items': ['torch'],
+    #     'enemies': ['bat']
+    # },
+    # Add more scenarios here.}
 
 def generate_scenario(exits):
     # TODO 2: Enhance scenario generation with more dynamic and varied logic.
@@ -78,12 +85,19 @@ def load_game():
     pass
 
 def play_game():
-    # TODO 17: Implement a feature to allow players to revisit previous scenarios or undo actions.
+    # TODO: Display the current scenario.
+    # TODO: Get the player's choice.
+    # TODO: Apply the outcome of the choice.
+    # TODO: Check for enemy encounters or item usage.
+    # TODO: Check if the player is still alive. If not, end the game.
     pass
 
 def main_menu():
-    # TODO 18: Add more options in the main menu, like 'Load Game', 'Help', or 'Settings'.
-    pass
+    while True:
+        # TODO: Display the main menu.
+        # TODO: Get the player's choice.
+        # TODO: Start the game, load a game, or exit based on choice.
+        pass
 
 if __name__ == "__main__":
     main_menu()
