@@ -1,7 +1,27 @@
-    'cave': {
+scenarios = {
+    # TODO 3: Create a function to generate the initial scenarios dynamically rather than hardcoding them.
+    'start': {
         'text': 'You find yourself in a dark cave. Exits are North and West.',
-        'options': ['1. North', '2. West'],
+        'options': ['North', 'West'],
         'items': items,
         'health_change': 0,
-        'enemy': enemies
+        'enemy': enemies,
+        'outcomes': [north_scenario',west_scenario']
+    },
+        'north_scenario': {
+        'text': 'You find yourself in a northern dark cave. Exits are North and West.',
+        'options': ['North', 'West'],
+        'items': items,
+        'health_change': 0,
+        'enemy': enemies,
+        'outcomes': ['north_scenario','west_scenario']
+    },
+        'west_scenario': {
+        'text': 'You find yourself in a western dark cave. Exits are North and West.',
+        'options': ['North', 'West'],
+        'items': items,
+        'health_change': 0,
+        'enemy': enemies,
+        'outcomes': ['north_scenario','west_scenario']
     }
+}
