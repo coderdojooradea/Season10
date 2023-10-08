@@ -1,0 +1,6 @@
+    'cave': {
+        'text': 'You find yourself in a dark cave. Exits are North and West.',
+        'items': items,
+        'health_change': 0,
+        'enemy': enemies
+    }
