@@ -20,7 +20,7 @@ scenario_templates = {
     # Add more scenarios here.
 
     'cave': {
-        'text': 'You find yourself in a dark cave. Exits are {} and {}.',
+        'text': 'You find yourself in a dark cave. Exits are: {}.',
         'options' : ['Go North', 'Go West'],
         'outcomes': ['north_scenario', 'west_scenario'],
         'items': items,
@@ -28,7 +28,7 @@ scenario_templates = {
         'enemy': enemies
     },
     'tunnel': {
-        'text': 'You find yourself in a dimly lit tunnel. Exits are {} and {}.',
+        'text': 'You find yourself in a dimly lit tunnel. Exits are: {}.',
         'options' : ['Go North', 'Go West'],
         'outcomes': ['north_scenario', 'west_scenario'],
         'items': items,
@@ -44,7 +44,7 @@ scenario_templates = {
         'enemy': ['']
     },
     'secret_room': {
-        'text': 'You discover a hidden door leading to a secret room. Exits are {} and {}.',
+        'text': 'You discover a hidden door leading to a secret room. Exits are: {}.',
         'options' : ['Go North', 'Go West'],
         'outcomes': ['north_scenario', 'west_scenario'],
         'items': items,
@@ -52,7 +52,7 @@ scenario_templates = {
         'enemy': enemies
     },
     'chest_room': {
-        'text': 'You find a treasure chest. The cave continues to {} and {}.',
+        'text': 'You find a treasure chest. The cave continues to: {}.',
         'options' : ['Go North', 'Go West'],
         'outcomes': ['north_scenario', 'west_scenario'],
         'items': items,
@@ -69,9 +69,26 @@ scenario_templates = {
     }
 }
 
+def random_item_or_none(list):
+    if not list:
+        return None
+    return [random.choice(list)]
+
 def generate_scenario(exits):
     # TODO 2: Enhance scenario generation with more dynamic and varied logic.
-    pass
+    scenario_type = random.choice(list(scenario_templates.keys()))
+    template = scenario_templates[scenario_type]
+    print(template)
+    scenario = {
+        'text' : template['text'].format(*exits),
+        'options' : [f'Go_{exit}' for exit in exits],
+        'outcomes' : [f'{exit}_scenario' for exit in exits],
+        'items': random_item_or_none(template['items']),
+        'health_change' : template['health_change'],
+        'enemy' : random_item_or_none(template['enemy'])
+    }
+    print(scenario)
+    return scenario
 
 scenarios = {
     # TODO 3: Create a function to generate the initial scenarios dynamically rather than hardcoding them.
@@ -92,6 +109,22 @@ scenarios = {
         'outcomes': ['north_scenario','west_scenario']
     },
         'west_scenario': {
+        'text': 'You find yourself in a western dark cave. Exits are North and West.',
+        'options': ['North', 'West'],
+        'items': items,
+        'health_change': 0,
+        'enemy': enemies,
+        'outcomes': ['north_scenario','west_scenario']
+    },
+        'south_scenario': {
+        'text': 'You find yourself in a northern dark cave. Exits are North and West.',
+        'options': ['North', 'West'],
+        'items': items,
+        'health_change': 0,
+        'enemy': enemies,
+        'outcomes': ['north_scenario','west_scenario']
+    },
+        'est_scenario': {
         'text': 'You find yourself in a western dark cave. Exits are North and West.',
         'options': ['North', 'West'],
         'items': items,
@@ -201,6 +234,7 @@ def main_menu():
         print("2. Exit")
         choice = get_player_choice("Choose an option: ", ['1', '2'])
         if choice == 1:
+            generate_scenario(["south", "est"])
             play_game()
         elif choice == 2:
             print("Thanks for playing!")
