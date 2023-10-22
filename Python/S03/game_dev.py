@@ -78,7 +78,6 @@ def generate_scenario(exits):
     # TODO 2: Enhance scenario generation with more dynamic and varied logic.
     scenario_type = random.choice(list(scenario_templates.keys()))
     template = scenario_templates[scenario_type]
-    print(template)
     scenario = {
         'text' : template['text'].format(*exits),
         'options' : [f'Go_{exit}' for exit in exits],
@@ -87,7 +86,6 @@ def generate_scenario(exits):
         'health_change' : template['health_change'],
         'enemy' : random_item_or_none(template['enemy'])
     }
-    print(scenario)
     return scenario
 
 scenarios = {
@@ -100,38 +98,10 @@ scenarios = {
         'enemy': enemies,
         'outcomes': ['north_scenario','west_scenario']
     },
-        'north_scenario': {
-        'text': 'You find yourself in a northern dark cave. Exits are North and West.',
-        'options': ['North', 'West'],
-        'items': items,
-        'health_change': 0,
-        'enemy': enemies,
-        'outcomes': ['north_scenario','west_scenario']
-    },
-        'west_scenario': {
-        'text': 'You find yourself in a western dark cave. Exits are North and West.',
-        'options': ['North', 'West'],
-        'items': items,
-        'health_change': 0,
-        'enemy': enemies,
-        'outcomes': ['north_scenario','west_scenario']
-    },
-        'south_scenario': {
-        'text': 'You find yourself in a northern dark cave. Exits are North and West.',
-        'options': ['North', 'West'],
-        'items': items,
-        'health_change': 0,
-        'enemy': enemies,
-        'outcomes': ['north_scenario','west_scenario']
-    },
-        'est_scenario': {
-        'text': 'You find yourself in a western dark cave. Exits are North and West.',
-        'options': ['North', 'West'],
-        'items': items,
-        'health_change': 0,
-        'enemy': enemies,
-        'outcomes': ['north_scenario','west_scenario']
-    }
+        'north_scenario': generate_scenario(['north', 'south', 'east', 'west']),
+        'west_scenario': generate_scenario(['north', 'south', 'east', 'west']),
+        'south_scenario': generate_scenario(['north', 'south', 'east', 'west']),
+        'east_scenario': generate_scenario(['north', 'south', 'east', 'west'])
 }
 
 player = {
@@ -197,7 +167,13 @@ def drop_item(item):
 
 def apply_health_change(amount):
     # TODO 13: Implement additional effects (like status effects) when health changes.
-    pass
+    player['health'] += amount -1
+    if player['health'] <= 0:
+        print("You have died.")
+        main_menu()
+    elif player['health'] > 100:
+        player['health'] = 100  # Cap health at 100.
+    print(f"Your health is now {player['health']}.")
 
 def encounter_enemy(enemy):
     # TODO 14: Implement different behaviors for different enemies.
@@ -216,6 +192,7 @@ def play_game():
     while True:
         current_scenario = scenarios[player['current_scenario']]
         display_scenario(current_scenario)
+        apply_health_change(current_scenario['health_change'])
 
         options = list(range(1,len(current_scenario['options'])+1))
         #print(options)
