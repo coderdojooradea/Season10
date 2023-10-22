@@ -14,10 +14,60 @@ scenario_templates = {
     #     'options': ['Go North', 'Go South'],
     #     'outcomes': ['north_scenario', 'south_scenario'],
     #     'items': ['torch'],
+    #     'health_change': 0,
     #     'enemies': ['bat']
     # },
     # Add more scenarios here.
+
+    'cave': {
+        'text': 'You find yourself in a dark cave. Exits are {} and {}.',
+        'options' : ['Go North', 'Go West'],
+        'outcomes': ['north_scenario', 'west_scenario'],
+        'items': items,
+        'health_change': 0,
+        'enemy': enemies
+    },
+    'tunnel': {
+        'text': 'You find yourself in a dimly lit tunnel. Exits are {} and {}.',
+        'options' : ['Go North', 'Go West'],
+        'outcomes': ['north_scenario', 'west_scenario'],
+        'items': items,
+        'health_change': -5,
+        'enemy': enemies
+    },
+    'treasure_room': {
+        'text': 'You have found the legendary treasure room! Congratulations!',
+        'options' : ['Go North', 'Go West'],
+        'outcomes': ['north_scenario', 'west_scenario'],
+        'items': [],
+        'health_change': 0,
+        'enemy': ['']
+    },
+    'secret_room': {
+        'text': 'You discover a hidden door leading to a secret room. Exits are {} and {}.',
+        'options' : ['Go North', 'Go West'],
+        'outcomes': ['north_scenario', 'west_scenario'],
+        'items': items,
+        'health_change': 0,
+        'enemy': enemies
+    },
+    'chest_room': {
+        'text': 'You find a treasure chest. The cave continues to {} and {}.',
+        'options' : ['Go North', 'Go West'],
+        'outcomes': ['north_scenario', 'west_scenario'],
+        'items': items,
+        'health_change': -10,
+        'enemy': enemies
+    },
+    'dark_tunnel': {
+        'text': 'The tunnel is a dead end, but you find a healing fountain.',
+        'options' : ['Go North', 'Go West'],
+        'outcomes': ['north_scenario', 'west_scenario'],
+        'items': ['health_potion'],
+        'health_change': 0,
+        'enemy': ['']
     }
+}
 
 def generate_scenario(exits):
     # TODO 2: Enhance scenario generation with more dynamic and varied logic.
