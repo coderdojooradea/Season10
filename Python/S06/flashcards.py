@@ -26,13 +26,18 @@ class FlashCard:
             print(f"Flash card app {self.filename} is corrupted or not in JSON format.")
 
     def show_terms(self):
-        pass
+        terms = list(self.flashcards.keys())
+        print(terms)
+        weighted_terms = [term for term in terms for _ in range(max(1, self.flashcards[term]['attempts']-self.flashcards[term]['correct']))]
+        print(weighted_terms)
+        term = random.choice(weighted_terms if weighted_terms else terms)
+        print(f"Term: {term}")
+        return term
 
 flashcard_app = FlashCard()
-print(flashcard_app.flashcards)
-flashcard_app.add_card("Python", 
-                       "A high-level programming")  
-flashcard_app.add_card("C++", 
-                       "Also a high-level programming")  
-print(flashcard_app.flashcards)
-flashcard_app.save_card()
+# flashcard_app.add_card("Python", 
+#                        "A high-level programming")  
+# flashcard_app.add_card("C++", 
+#                        "Also a high-level programming")  
+# flashcard_app.save_card()
+flashcard_app.show_terms()
