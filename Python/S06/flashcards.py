@@ -12,14 +12,27 @@ class FlashCard:
                                 'correct': 0,
                                 'attempts': 0}
 
+    def save_card(self):
+        with open(self.filename, 'w') as f:
+            json.dump(self.flashcards, f, indent=4)
+
     def load_flashcards(self):
         try:
             with open(self.filename, 'r') as f:
                 self.flashcards = json.load(f)
         except FileNotFoundError:
-            print(f"Flash card {self.filename} not found")        
+            print(f"Flash card {self.filename} not found")
+        except json.JSONDecodeError:
+            print(f"Flash card app {self.filename} is corrupted or not in JSON format.")
 
+    def show_terms(self):
+        pass
 
 flashcard_app = FlashCard()
+print(flashcard_app.flashcards)
 flashcard_app.add_card("Python", 
-                       "A high-level programming")        
+                       "A high-level programming")  
+flashcard_app.add_card("C++", 
+                       "Also a high-level programming")  
+print(flashcard_app.flashcards)
+flashcard_app.save_card()
