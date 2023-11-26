@@ -1,0 +1,17 @@
+{
+    "test": {
+        "definition": "test definition",
+        "correct": 0,
+        "attempts": 0
+    },
+    "Python": {
+        "definition": "A high-level programming",
+        "correct": 2,
+        "attempts": 5
+    },
+    "C++": {
+        "definition": "Also a high-level programming",
+        "correct": 1,
+        "attempts": 7
+    }
+}
