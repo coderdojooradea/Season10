@@ -1,5 +1,27 @@
 import random
 
+# Define the path to the file you downloaded
+file_path = 'words.txt'
+
+def filter_five_letter_words(file_path):
+    """
+    Filter and return a list of five-letter words from the provided file.
+    """
+    five_letter_words = []
+
+    # Attempt to open and read the file
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                word = line.strip()  # Remove newline characters and whitespace
+                if len(word) == 5:  # Check if the word is exactly five letters
+                    five_letter_words.append(word.lower())  # Add to the list
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
+
+    return five_letter_words
+
 def select_target_word(word_list):
     # Randomly select and return a target word from the list
     return random.choice(word_list)
@@ -61,5 +83,5 @@ def play_wordle(word_list):
         print(f"Sorry, you've run out of attempts. The word was {target_word}.")
 
 if __name__ == "__main__":
-    word_list = ["words", "word2", "word3", "today"]  # Populate with a real list of words
+    word_list = filter_five_letter_words(file_path)  # Populate with a real list of words
     play_wordle(word_list)
