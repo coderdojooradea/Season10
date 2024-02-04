@@ -10,7 +10,7 @@ def evaluate_guess(guess, target_word):
     target_letters = []
     if guess == target_word:
         print("Congratulations, you've guessed the word!")
-        return 
+        return ['🟩','🟩','🟩','🟩','🟩']
     for i in range(5):
         if guess[i] == target_word[i]:
             score[i] = '🟩'
@@ -23,13 +23,14 @@ def evaluate_guess(guess, target_word):
 
     return score
     
-        
-    
-
 
 def display_feedback(feedback):
     # Display feedback to the player about their guess
-    pass
+    display = ""
+    for i in range(5):
+        display += feedback[i]
+    print(f"Score: {display}")
+        
 
 def play_wordle(word_list):
     target_word = select_target_word(word_list)
@@ -44,7 +45,6 @@ def play_wordle(word_list):
             continue
         
         feedback = evaluate_guess(guess, target_word)
-        print(f"Target : {target_word}, Guess: {guess} => Score: {feedback}")
         display_feedback(feedback)
         
         if guess == target_word:
