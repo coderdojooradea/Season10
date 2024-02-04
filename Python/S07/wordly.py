@@ -2,11 +2,30 @@ import random
 
 def select_target_word(word_list):
     # Randomly select and return a target word from the list
-    pass
+    return random.choice(word_list)
 
 def evaluate_guess(guess, target_word):
     # Evaluate the player's guess and return feedback
-    pass
+    score = ['⬛','⬛','⬛','⬛','⬛']
+    target_letters = []
+    if guess == target_word:
+        print("Congratulations, you've guessed the word!")
+        return 
+    for i in range(5):
+        if guess[i] == target_word[i]:
+            score[i] = '🟩'
+    for i in range(5):
+        if target_word[i] not in target_letters:
+            target_letters.append(target_word[i])
+    for i in range(5):
+        if guess[i] in target_letters and guess[i] != target_word[i]:
+            score[i] = '🟨'
+
+    return score
+    
+        
+    
+
 
 def display_feedback(feedback):
     # Display feedback to the player about their guess
@@ -14,6 +33,7 @@ def display_feedback(feedback):
 
 def play_wordle(word_list):
     target_word = select_target_word(word_list)
+    print(target_word)
     attempts = 0
     max_attempts = 6
 
@@ -24,6 +44,7 @@ def play_wordle(word_list):
             continue
         
         feedback = evaluate_guess(guess, target_word)
+        print(f"Target : {target_word}, Guess: {guess} => Score: {feedback}")
         display_feedback(feedback)
         
         if guess == target_word:
@@ -36,5 +57,5 @@ def play_wordle(word_list):
         print(f"Sorry, you've run out of attempts. The word was {target_word}.")
 
 if __name__ == "__main__":
-    word_list = ["words", "to", "fill"]  # Populate with a real list of words
+    word_list = ["words", "word2", "word3", "today"]  # Populate with a real list of words
     play_wordle(word_list)
