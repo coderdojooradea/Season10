@@ -34,16 +34,20 @@ def display_feedback(feedback):
 
 def play_wordle(word_list):
     target_word = select_target_word(word_list)
-    print(target_word)
     attempts = 0
     max_attempts = 6
 
+    print("Welcome to Wordle! Guess the 5-letter word.")
+
     while attempts < max_attempts:
-        guess = input("Enter your guess: ").lower()
+        guess = input(f"Attempt {attempts+1}/{max_attempts}. Enter your guess: ").lower()
+        
+        # Ensure the guess is valid
         if len(guess) != 5 or guess not in word_list:
             print("Invalid guess. Please enter a five-letter word.")
             continue
         
+        # Evaluate the guess and display feedback
         feedback = evaluate_guess(guess, target_word)
         display_feedback(feedback)
         
