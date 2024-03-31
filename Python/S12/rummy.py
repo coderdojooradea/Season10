@@ -22,24 +22,6 @@ GREEN = (0, 255, 0)
 RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 SUITS = ['Diamonds', 'Hearts', 'Spades', 'Clubs']
 
-
-
-
-# deck = [(rank,suit) for rank in RANKS for suit in SUITS]
-
-
-# Functions
-# Shuffle the deck
-# def shuffle_deck():
-#     random.shuffle(deck)
-
-# Draw card
-# def draw_card():
-#     if deck:
-#         return deck.pop()
-#     else:
-#         return None
-
 # Deal cards
 def deal_cards(deck, num_players):
     hands = [[] for _ in range(num_players)]  
@@ -146,7 +128,8 @@ def main():
             for card in opponent_hand:
                 if all(card not in string for string in strings):
                     # Discard the card
-                    opponent_hand.remove(card)
+                    # opponent_hand.remove(card)
+                    pass
 
             # Pick up from deck if no strings are possible
             if not strings:
