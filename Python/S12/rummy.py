@@ -2,13 +2,13 @@ import pygame
 import random
 from pygame import K_ESCAPE
 import os
-import rummycls
+from rummycls import Card, Deck
 
 # Inintialize pygame
 pygame.init()
 
 # Set up the game window
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1200, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Rummy")
 
@@ -17,6 +17,10 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
+
+
+RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+SUITS = ['Diamonds', 'Hearts', 'Spades', 'Clubs']
 
 
 
@@ -37,11 +41,11 @@ GREEN = (0, 255, 0)
 #         return None
 
 # Deal cards
-def deal_cards(num_players):
+def deal_cards(deck, num_players):
     hands = [[] for _ in range(num_players)]  
     for _ in range(10):
         for i in range(num_players):
-            hands[i].append(draw_card())
+            hands[i].append(deck.draw())
     return hands
 
 # Evaluate hand for potential strings and melds
@@ -83,7 +87,7 @@ def main():
     print(deck)
 
     # Deal cards
-    hands = deal_cards(2)
+    hands = deal_cards(deck, 2)
     player_hand = hands[0]
     opponent_hand = hands[1]
 
@@ -170,7 +174,7 @@ def main():
 
             # Pick up from deck if no melds are possible
             if not melds:
-                card_from_deck = draw_card()
+                card_from_deck = card.draw()
                 opponent_hand.append(card_from_deck)
 
 
