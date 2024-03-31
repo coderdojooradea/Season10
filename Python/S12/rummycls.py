@@ -13,7 +13,6 @@ class Card:
         card_img_path = os.path.join(os.getcwd(),'Cards')
         card_img_name = self.rank+'_of_'+self.suit.lower()+'.svg'
         full_img_path = os.path.join(card_img_path, card_img_name)
-        print(f" Card class filename: {full_img_path}")
         self.image = pygame.image.load(full_img_path)
 
 
@@ -28,7 +27,6 @@ class Deck:
             for rank in ranks:
                 image_path = f"{card_image_path}/{rank.lower()}_of_{suit.lower()}.svg"
                 
-                # print(image_path)
                 self.cards.append(Card(suit,rank))
 
         self.shuffle()
