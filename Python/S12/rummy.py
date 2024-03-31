@@ -2,6 +2,7 @@ import pygame
 import random
 from pygame import K_ESCAPE
 import os
+import rummycls
 
 # Inintialize pygame
 pygame.init()
@@ -17,35 +18,23 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 
-# Card values
-RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-SUITS = ['Diamonds', 'Hearts', 'Spades', 'Clubs']
 
 
-class Card:
-    rank = None
-    suit = None
-    image = None
-    
-    def __init__(self, suit, rank):
-        self.rank = rank
-        self.suit = suit
-        self.image = pygame.image.load('./Cards/'+self.rank+'_of_'+self.suit.lower())
 
-deck = [(rank,suit) for rank in RANKS for suit in SUITS]
+# deck = [(rank,suit) for rank in RANKS for suit in SUITS]
 
 
 # Functions
 # Shuffle the deck
-def shuffle_deck():
-    random.shuffle(deck)
+# def shuffle_deck():
+#     random.shuffle(deck)
 
 # Draw card
-def draw_card():
-    if deck:
-        return deck.pop()
-    else:
-        return None
+# def draw_card():
+#     if deck:
+#         return deck.pop()
+#     else:
+#         return None
 
 # Deal cards
 def deal_cards(num_players):
@@ -86,8 +75,12 @@ def evaluate_hand(hand):
 
 # Main function
 def main():
-    # Shuffle the deck
-    shuffle_deck()
+    # Get cards image path
+    card_path = os.path.join(os.getcwd(), 'Cards')
+    
+    # Generate and Shuffle the deck
+    deck = Deck(card_path)
+    print(deck)
 
     # Deal cards
     hands = deal_cards(2)
@@ -100,9 +93,9 @@ def main():
     running = True
     while running:
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == pygame.QUIT:
                 running = False
-            if event.type == KEYDOWN and event.key == K_ESCAPE:
+            if event.type == pygame.KEYDOWN and event.key == K_ESCAPE:
                 running = False
 
         screen.fill(GREEN)
@@ -111,14 +104,16 @@ def main():
         y_offset = 100
 
         # Display player's hand
+        print(player_hand)
         for card in player_hand:
+            print(card.image)
             screen.blit(card.image, (x_offset, y_offset))
             x_offset += 80
 
         # Display opponent's hand (face-down)
         x_offset = 50
         y_offset = 300
-        back_image = pygame.image.load('./Cards/card_back.png')
+        back_image = pygame.image.load('./Cards/card_back.svg')
         for _ in opponent_hand:
             screen.blit(back_image, (x_offset, y_offset))
             x_offset += 80
@@ -183,7 +178,7 @@ def main():
 
     pygame.quit()
     
-print (os.getcwd())
-card=Card('Hearts', '10')    
-pygame.image.load('./Cards/'+'10'+'_of_'+SUITS[1].lower()+'.svg')
+# print (os.getcwd())
+# card=Card('Hearts', '10')    
+# pygame.image.load('./Cards/'+'10'+'_of_'+SUITS[1].lower()+'.svg')
 main()
