@@ -84,12 +84,12 @@ def main():
     
     # Generate and Shuffle the deck
     deck = Deck(card_path)
-    print(deck)
-
+    
     # Deal cards
     hands = deal_cards(deck, 2)
     player_hand = hands[0]
     opponent_hand = hands[1]
+    print(hands)
 
     # First player is human
     current_player = 0
@@ -108,9 +108,8 @@ def main():
         y_offset = 100
 
         # Display player's hand
-        print(player_hand)
+        # print(player_hand)
         for card in player_hand:
-            print(card.image)
             screen.blit(card.image, (x_offset, y_offset))
             x_offset += 80
 
@@ -124,16 +123,16 @@ def main():
 
         # Evaluate opponent's hand
         strings, melds = evaluate_hand(opponent_hand)
-        print("Opponent's hand:")
-        print("Strings:", strings)
-        print("Melds:", melds)
+        # print("Opponent's hand:")
+        # print("Strings:", strings)
+        # print("Melds:", melds)
 
         # Make AI decisions
         # Assuming strings and melds are lists of potential strings and melds, respectively
 
         # Going for Strings
         if len(strings) > len(melds):
-            print("Opponent decides to go for strings.")
+            # print("Opponent decides to go for strings.")
             
             # Prioritize keeping cards for strings
             for string in strings:
@@ -156,7 +155,7 @@ def main():
 
         # Going for Melds
         else:
-            print("Opponent decides to go for melds.")
+            # print("Opponent decides to go for melds.")
             
             # Prioritize keeping cards for melds
             for meld in melds:
@@ -182,7 +181,4 @@ def main():
 
     pygame.quit()
     
-# print (os.getcwd())
-# card=Card('Hearts', '10')    
-# pygame.image.load('./Cards/'+'10'+'_of_'+SUITS[1].lower()+'.svg')
 main()
