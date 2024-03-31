@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 
 class Card:
     rank = None
@@ -9,7 +10,11 @@ class Card:
     def __init__(self, suit, rank):
         self.rank = rank
         self.suit = suit
-        self.image = pygame.image.load('./Cards/'+self.rank+'_of_'+self.suit.lower()+'.svg')
+        card_img_path = os.path.join(os.getcwd(),'Cards')
+        card_img_name = self.rank+'_of_'+self.suit.lower()+'.svg'
+        full_img_path = os.path.join(card_img_path, card_img_name)
+        print(f" Card class filename: {full_img_path}")
+        self.image = pygame.image.load(full_img_path)
 
 
 class Deck:
@@ -22,15 +27,17 @@ class Deck:
         for suit in suits:
             for rank in ranks:
                 image_path = f"{card_image_path}/{rank.lower()}_of_{suit.lower()}.svg"
-                self.cards.append(Card(rank, suit, image_path))
+                
+                # print(image_path)
+                self.cards.append(Card(suit,rank))
 
         self.shuffle()
 
-        def shuffle(self):
-            random.shuffle(self.cards)
+    def shuffle(self):
+        random.shuffle(self.cards)
 
-        def draw(self):
-            if len(self.card)>0:
-                return self.cards.pop()
-            else:
-                return None
+    def draw(self):
+        if len(self.cards)>0:
+            return self.cards.pop()
+        else:
+            return None
