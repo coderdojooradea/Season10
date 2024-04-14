@@ -1,18 +1,36 @@
 import requests
 
 geo_url = "http://api.openweathermap.org/geo/1.0/direct?"
-url = "https://api.openweathermap.org/data/3.0/onecall?"
+weather_url = "https://api.openweathermap.org/data/2.5/weather?"
 api_key = "6c64d4a25dfad806e5ef1cddae5a5acf"
 
 def get_lat_lon(city, key):
     geo_url_ll = geo_url +f"q={city}&limit=3&appid={key}"
     # print(geo_url_ll)
     response = requests.get(geo_url_ll)
-    return response.json()
+    lat = response.json()[0]['lat']
+    lon = response.json()[0]['lon']
+    return city, lat, lon
 
-def get_weather_city(city, api_key):
-    # city_url = url+f"q={city}&appid"
-    pass
+def get_weather_ll(lat, lon, key):
+    ll_url = weather_url + f"lat={lat}&lon={lon}&appid={key}"
+    response = requests.get(ll_url)
+    print(response.json())
+    weather = response.json()['weather'][0]
+    description = weather['main']
+    icon = weather['icon']
+    main= response.json()['main']
+    temp = main['temp']
+    pres = main['pressure']
+    hum = main['humidity']
+    wind = response.json()['wind']
+    resolution = {'descrition': description,
+                  'icon': icon, 
+                  'temp': temp, 
+                  'pressure':pres, 
+                  'humidity': hum, 
+                  'wund': wind}
+    return resolution 
 
-
-print(get_lat_lon("Oradea", api_key))
+city, lat, lon = get_lat_lon("Oradea", api_key)
+print(get_weather_ll(lat, lon, api_key))
