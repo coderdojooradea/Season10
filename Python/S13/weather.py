@@ -1,4 +1,5 @@
 import requests
+import streamlit as st
 
 geo_url = "http://api.openweathermap.org/geo/1.0/direct?"
 weather_url = "https://api.openweathermap.org/data/2.5/weather?"
@@ -23,14 +24,20 @@ def get_weather_ll(lat, lon, key):
     temp = main['temp']
     pres = main['pressure']
     hum = main['humidity']
-    wind = response.json()['wind']
+    wind = response.json()['wind']['speed']
     resolution = {'descrition': description,
                   'icon': icon, 
                   'temp': temp, 
                   'pressure':pres, 
                   'humidity': hum, 
-                  'wund': wind}
+                  'wind': wind}
     return resolution 
 
-city, lat, lon = get_lat_lon("Oradea", api_key)
-print(get_weather_ll(lat, lon, api_key))
+def display_weather(data):
+    st.title = "Weather data"
+
+
+if __name__ == 'main':
+    city, lat, lon = get_lat_lon("Oradea", api_key)
+    wdata = get_weather_ll(lat, lon, api_key)
+    display_weather(wdata)
