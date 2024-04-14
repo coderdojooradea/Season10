@@ -9,7 +9,7 @@ api_key = "6c64d4a25dfad806e5ef1cddae5a5acf"
 
 def get_lat_lon(city, key):
     geo_url_ll = geo_url +f"q={city}&limit=3&appid={key}"
-    # print(geo_url_ll)
+    print(geo_url_ll)
     response = requests.get(geo_url_ll)
     lat = response.json()[0]['lat']
     lon = response.json()[0]['lon']
@@ -62,8 +62,6 @@ def display_map(lat, lon):
     st.pydeck_chart(map)
 
 def display_weather(data):
-    """Display weather data along with the weather icon."""
-    st.title("Weather Data")
 
     # Construct the URL for the weather icon
     icon_url = f"http://openweathermap.org/img/wn/{data['icon']}.png"
@@ -83,16 +81,21 @@ def display_weather(data):
         st.image(icon_url, caption="Current Weather")
 
 def main():
-    city, lat, lon = get_lat_lon("Oradea", api_key)
-    if lat and lon:
-        wdata = get_weather_ll(lat, lon, api_key)
-        if wdata:
-            display_map(lat, lon)
-            display_weather(wdata)
+    """Display weather data along with the weather icon."""
+    st.title("Weather Data")
+    city = st.text_input("City name", "Oradea")  # Default value is "Oradea"
+
+    if city:
+        city, lat, lon = get_lat_lon(city, api_key)
+        if lat and lon:
+            wdata = get_weather_ll(lat, lon, api_key)
+            if wdata:
+                display_map(lat, lon)
+                display_weather(wdata)
+            else:
+                st.error("Failed to retrieve weather data.")
         else:
-            st.error("Failed to retrieve weather data.")
-    else:
-        st.error("Failed to retrieve geographic data for the specified city.")
+            st.error("Failed to retrieve geographic data for the specified city.")
 
 if __name__ == '__main__':
     main()
